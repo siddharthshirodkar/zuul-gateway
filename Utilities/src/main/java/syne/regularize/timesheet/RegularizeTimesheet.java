@@ -143,7 +143,7 @@ public class RegularizeTimesheet {
 		//WebDriverWait wait = new WebDriverWait(webDriver,3);
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelDecrepencyCountLink))); 
 		int descrepenciesCount = Integer.valueOf(webDriver.findElement(By.cssSelector(cssSelDecrepencyCountLink)).getText());
-		System.out.println("Discrepecies Count == "+descrepenciesCount);
+		System.out.println("Discrepencies Count == "+descrepenciesCount);
 		if(descrepenciesCount == 0)
 		{
 			System.out.println("No Attendence Discrepencies to be handled..");
