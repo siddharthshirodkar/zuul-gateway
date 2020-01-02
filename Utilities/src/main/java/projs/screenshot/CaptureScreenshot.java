@@ -1,13 +1,11 @@
 package projs.screenshot;
 
-import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +20,7 @@ public class CaptureScreenshot {
             ImageIO.write(image, "jpg", screenshotFile);
             Desktop.getDesktop().open(screenshotFile);
         } 
-        catch (AWTException | IOException ex) { 
+        catch (Exception ex) { 
             System.out.println(ex); 
         } 
     } 

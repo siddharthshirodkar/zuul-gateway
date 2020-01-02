@@ -1,9 +1,8 @@
 package utilities.waterbill.datatypes;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BillingDetails {
+public abstract class BillingDetails {
 
 	private Date billingPeriodStartDate;
 	private Date billingPeriodEndDate;
@@ -11,6 +10,9 @@ public class BillingDetails {
 	private Date issueDate;
 	private Date dueDate;
 	private int billAmount;
+	
+	private String contractAccNo;
+	private String paymentStatus;
 	
 	public Date getBillingPeriodStartDate() {
 		return billingPeriodStartDate;
@@ -42,16 +44,16 @@ public class BillingDetails {
 	public void setBillAmount(int billAmount) {
 		this.billAmount = billAmount;
 	}
-	
-	@Override
-	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-		return "billingPeriodStartDate = " + sdf.format(getBillingPeriodStartDate())+"\n"+
-				"billingPeriodEndDate = " + sdf.format(getBillingPeriodEndDate())+"\n"+
-				"issueDate = " + sdf.format(getIssueDate())+"\n"+
-				"dueDate = " + sdf.format(getDueDate()) +"\n"+
-				"billAmount = Rs: "+getBillAmount()+"/-\n";
+	public String getContractAccNo() {
+		return contractAccNo;
 	}
-	
-	
+	public void setContractAccNo(String contractAccNo) {
+		this.contractAccNo = contractAccNo;
+	}
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
 }
