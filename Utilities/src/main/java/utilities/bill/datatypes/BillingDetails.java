@@ -1,4 +1,4 @@
-package utilities.waterbill.datatypes;
+package utilities.bill.datatypes;
 
 import java.util.Date;
 

@@ -1,6 +1,5 @@
-package utilities.waterbill.notify;
+package utilities.bill.notify;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,9 +19,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import utilities.waterbill.datatypes.BillingDetails;
-import utilities.waterbill.datatypes.ElectricityBillingDetails;
-import utilities.waterbill.datatypes.WaterBillingDetails;
+import utilities.bill.datatypes.BillingDetails;
+import utilities.bill.datatypes.ElectricityBillingDetails;
+import utilities.bill.datatypes.WaterBillingDetails;
 
 public class NotifyUtilityBill {
 
