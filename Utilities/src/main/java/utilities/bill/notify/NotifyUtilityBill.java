@@ -78,11 +78,16 @@ public class NotifyUtilityBill {
 		
 		for(BillingDetails bill : billingDetailsList)
 		{
-			//System.out.println(bill);
-			if(bill.getDueDate().after(new Date()))
-				System.out.println(bill.getContractAccNo()+" - Congratulations, Bill can be paid!!!");
-			else	
-				System.out.println(bill.getContractAccNo()+" - Alas!!, Bill cannot be paid anymore...");
+			System.out.print(bill.getContractAccNo()+" - ");
+			if(bill.getPaymentStatus().equalsIgnoreCase("Payment is already done"))
+				System.out.println("Congratulations, Bill is already paid");
+			else
+			{
+				if(bill.getDueDate().after(new Date()))
+					System.out.println("Congratulations, Bill can be paid!!!");
+				else	
+					System.out.println("Alas!!, Bill cannot be paid anymore...");
+			}
 		}
 		//System.out.println(bill);
 	}
