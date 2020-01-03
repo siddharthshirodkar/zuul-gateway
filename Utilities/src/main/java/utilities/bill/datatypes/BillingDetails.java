@@ -1,5 +1,6 @@
 package utilities.bill.datatypes;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class BillingDetails {
@@ -55,5 +56,15 @@ public abstract class BillingDetails {
 	}
 	public void setPaymentStatus(String paymentStatus) {
 		this.paymentStatus = paymentStatus;
+	}
+	
+	public abstract String getBillType();
+	
+	public String getNotificationText() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+		return getBillType() +" - "+
+				"contractAccNo = "+ getContractAccNo() +","+
+				"dueDate = " + sdf.format(getDueDate()) +","+
+				"billAmount = Rs: "+getBillAmount() +"/-";
 	}
 }

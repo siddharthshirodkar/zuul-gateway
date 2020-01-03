@@ -24,12 +24,18 @@ public class WaterBillingDetails extends BillingDetails{
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-		return  "contractAccNo = "+ getContractAccNo() +"\n"+
+		return  "billType = "+ getBillType() +"\n"+
+				"contractAccNo = "+ getContractAccNo() +"\n"+
 				"billingPeriodStartDate = " + sdf.format(getBillingPeriodStartDate())+"\n"+
 				"billingPeriodEndDate = " + sdf.format(getBillingPeriodEndDate())+"\n"+
 				"issueDate = " + sdf.format(getIssueDate())+"\n"+
 				"dueDate = " + sdf.format(getDueDate()) +"\n"+
 				"billAmount = Rs: "+getBillAmount()+"/-\n"+
 				"paymentStatus =  "+getPaymentStatus();
+	}
+	
+	@Override
+	public String getBillType() {
+		return "Water Bill";
 	}
 }

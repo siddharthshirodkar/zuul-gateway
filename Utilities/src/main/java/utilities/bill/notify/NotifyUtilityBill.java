@@ -21,6 +21,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import utilities.bill.datatypes.BillingDetails;
 import utilities.bill.datatypes.ElectricityBillingDetails;
+import utilities.bill.datatypes.NotificationDetails;
 import utilities.bill.datatypes.WaterBillingDetails;
 
 public class NotifyUtilityBill {
@@ -44,6 +45,7 @@ public class NotifyUtilityBill {
 	private static final String WATER_BILL_CONSUMER_ID = "29191161";
 	private static final String ELECTRICITY_BILL_CONTRACT_ID1 = "60004767434";
 	private static final String ELECTRICITY_BILL_CONTRACT_ID2 = "60004887711";
+	private static final String NOTIFICATION_RECIEVER = "9823928686";
 	
 	private static final String SCREENSHOT_NAME_EXT_FORMAT = "yyyyMMdd_HH_mm_ss";
 	private static final String SCREENSHOT_SAVE_DIR = BASE_HOME_DIR + "screenshots/";
@@ -58,13 +60,13 @@ public class NotifyUtilityBill {
 	public static void main(String[] args)  throws Exception{
 		System.out.println("Started.. ");
 		long startTime = System.currentTimeMillis();
-		NotifyUtilityBill notifyUtilityGeneration = new NotifyUtilityBill();
-		notifyUtilityGeneration.notifyBillGeneration();
+		NotifyUtilityBill notifyUtilityBillGeneration = new NotifyUtilityBill();
+		notifyUtilityBillGeneration.notifyBillGeneration();
 		System.out.println("Finished..");
 		System.out.println("Time taken = "+(System.currentTimeMillis() - startTime)/1000+" secs");
 	}
 
-	private void notifyBillGeneration()  throws Exception
+	private void notifyBillGeneration() throws Exception
 	{
 		openBrowser();
 		ArrayList<BillingDetails> billingDetailsList = populateElectricityBillList();
@@ -74,22 +76,31 @@ public class NotifyUtilityBill {
 		closeBrowser();
 	}
 	
-	private void handleBillNotifications(ArrayList<BillingDetails> billingDetailsList) {
-		
+	private void handleBillNotifications(ArrayList<BillingDetails> billingDetailsList) throws Exception {
+		NotificationSender notifSender = new NotificationSender(webDriver);
+		NotificationDetails notifDetails = new NotificationDetails();
+		notifDetails.setNotificationReceiver(NOTIFICATION_RECIEVER);
 		for(BillingDetails bill : billingDetailsList)
 		{
 			System.out.print(bill.getContractAccNo()+" - ");
 			if(bill.getPaymentStatus().equalsIgnoreCase("Payment is already done"))
+			{
 				System.out.println("Congratulations, Bill is already paid");
+			}
 			else
 			{
 				if(bill.getDueDate().after(new Date()))
+				{
 					System.out.println("Congratulations, Bill can be paid!!!");
+					notifDetails.setNotificationTrigerrer(bill.getBillType());
+					notifDetails.setNotificationText(bill.getNotificationText());
+					notifSender.triggerNotification(notifDetails);
+				}
 				else	
 					System.out.println("Alas!!, Bill cannot be paid anymore...");
 			}
 		}
-		//System.out.println(bill);
+		notifSender.logout();
 	}
 
 	private BillingDetails populateWaterBillingDetails() throws Exception
@@ -162,12 +173,10 @@ public class NotifyUtilityBill {
 		Logger.getLogger(SELENIUM_LOGGER_CLASS).setLevel(Level.OFF);
 		System.setProperty(DRIVER_PROPERTY_NAME, DRIVER_PATH+DRIVER_EXE_NAME);
 		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.setHeadless(true);
+		chromeOptions.setHeadless(false);
 		chromeOptions.addArguments("--start-maximized");
 	    System.setProperty("webdriver.chrome.silentOutput", "true");
-
 		webDriver = new ChromeDriver(chromeOptions);
-
 		//webDriver.manage().window().maximize();
 	}
 	

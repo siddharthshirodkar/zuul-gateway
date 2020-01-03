@@ -7,10 +7,16 @@ public class ElectricityBillingDetails extends BillingDetails{
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-		return "contractAccNo = "+ getContractAccNo() +"\n"+
+		return "billType = "+ getBillType() +"\n"+
+				"contractAccNo = "+ getContractAccNo() +"\n"+
 				"issueDate = " + sdf.format(getIssueDate()) +"\n"+
 				"dueDate = " + sdf.format(getDueDate()) +"\n"+
 				"billAmount = Rs: "+getBillAmount() +"/-\n"+
 				"paymentStatus =  "+getPaymentStatus() +"\n";
+	}
+
+	@Override
+	public String getBillType() {
+		return "Electricty Bill";
 	}
 }
