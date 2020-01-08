@@ -91,7 +91,7 @@ public class RegularizeTimesheet {
 	private static final String LOG_NAME_DATE_FORMAT = "yyyyMMdd_HH_mm_ss";
 	
 	private static final String SCREENSHOT_PREFIX = "Regularization_";
-	private static final boolean IS_HEADLESS = false;
+	private static final boolean IS_HEADLESS = true;
 	
 	private WebDriver webDriver;
 	
