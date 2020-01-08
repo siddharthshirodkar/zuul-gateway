@@ -46,8 +46,10 @@ public class RegularizeTimesheet {
 	private static final BROWSER_TYPE BROWSER = BROWSER_TYPE.CHROME;
 	
 	//Selenium specific constants
-	private static final String BASE_HOME_DIR = "C:/Users/siddharth.s/";
-	private static final String DRIVER_PATH = BASE_HOME_DIR + "eclipse-workspace/artifacts/driverss/";
+	//private static final String BASE_HOME_DIR = "C:/Users/siddharth.s/";
+	//private static final String DRIVER_PATH = BASE_HOME_DIR + "eclipse-workspace/artifacts/driverss/";
+	private static final String BASE_HOME_DIR = System.getProperty("user.dir");
+	private static final String DRIVER_PATH = BASE_HOME_DIR + "/resources/";
 	private static final String DRIVER_PROPERTY_NAME = "webdriver."+browserToDriverNameMap.get(BROWSER)+".driver";
 	private static final String DRIVER_EXE_NAME = browserToDriverNameMap.get(BROWSER)+"driver.exe";
 	private static final String SELENIUM_LOGGER_CLASS = "org.openqa.selenium";
@@ -85,11 +87,12 @@ public class RegularizeTimesheet {
 	private static final int MAX_WEEKS_IN_A_MONTH = 5;
 	
 	//Logs Configuration
-	private static final String LOG_DIR = BASE_HOME_DIR + "logs/selenium/";
+	private static final String LOG_DIR = BASE_HOME_DIR + "/logs/selenium/";
 	private static final String LOG_FILE_NAME = "DriverLog";
 	private static final String LOG_FILE_EXTENSION = ".txt";
 	private static final String LOG_NAME_DATE_FORMAT = "yyyyMMdd_HH_mm_ss";
 	
+	private static final String SCREENSHOT_DIR = BASE_HOME_DIR + "/screenshots/";
 	private static final String SCREENSHOT_PREFIX = "Regularization_";
 	private static final boolean IS_HEADLESS = true;
 	
@@ -433,10 +436,10 @@ public class RegularizeTimesheet {
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(LOG_NAME_DATE_FORMAT);
 		File screenshotFile = ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.FILE);
-		Path destScreenshotPath = Paths.get(LOG_DIR+SCREENSHOT_PREFIX+sdf.format(new Date())+screenshotFile.getName().substring(screenshotFile.getName().lastIndexOf(".")));
+		Path destScreenshotPath = Paths.get(SCREENSHOT_DIR+SCREENSHOT_PREFIX+sdf.format(new Date())+screenshotFile.getName().substring(screenshotFile.getName().lastIndexOf(".")));
 	    Path srcScreenshotPath = screenshotFile.toPath();
-	    if(!new File(LOG_DIR).exists())
-	    	new File(LOG_DIR).mkdirs();
+	    if(!new File(SCREENSHOT_DIR).exists())
+	    	new File(SCREENSHOT_DIR).mkdirs();
 	    Files.copy(srcScreenshotPath, destScreenshotPath, StandardCopyOption.REPLACE_EXISTING);
 	}
 }
