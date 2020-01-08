@@ -435,6 +435,8 @@ public class RegularizeTimesheet {
 		File screenshotFile = ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.FILE);
 		Path destScreenshotPath = Paths.get(LOG_DIR+SCREENSHOT_PREFIX+sdf.format(new Date())+screenshotFile.getName().substring(screenshotFile.getName().lastIndexOf(".")));
 	    Path srcScreenshotPath = screenshotFile.toPath();
+	    if(!new File(LOG_DIR).exists())
+	    	new File(LOG_DIR).mkdirs();
 	    Files.copy(srcScreenshotPath, destScreenshotPath, StandardCopyOption.REPLACE_EXISTING);
 	}
 }
