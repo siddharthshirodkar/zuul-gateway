@@ -91,7 +91,7 @@ public class RegularizeTimesheet {
 	private static final String LOG_NAME_DATE_FORMAT = "yyyyMMdd_HH_mm_ss";
 	
 	private static final String SCREENSHOT_PREFIX = "Regularization_";
-	private static final boolean IS_HEADLESS = true;
+	private static final boolean IS_HEADLESS = false;
 	
 	private WebDriver webDriver;
 	
@@ -193,6 +193,7 @@ public class RegularizeTimesheet {
 				if(webDriver.getTitle().equalsIgnoreCase(TITLE_SYNETIME_ATTENDENCE_HOME))
 					webDriver.findElement(By.cssSelector(cssSelForLinkToRegPage)).click();
 				
+				waitForPageToLoad(TITLE_SYNETIME_APPLICATIONS_PAGE);
 				webDriver.findElement(By.cssSelector(cssSelRegLink)).click();
 				waitForPageToLoad(TITLE_SYNETIME_REGULARIZATION_PAGE);
 				webDriver.findElement(By.id(idReasonDropDown)).click();
