@@ -3,6 +3,7 @@ package utilities.bill.notify;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import global.utils.GlobalContext;
 import utilities.bill.datatypes.NotificationDetails;
 
 public class NotificationSender {
@@ -12,21 +13,13 @@ public class NotificationSender {
 	private final String NOTIFICATION_SENDER_PAGE_URL = "https://www.160by2.com/";
 	private WebDriver mWebDriver;
 	
-	public NotificationSender(WebDriver webDriver) throws InterruptedException
-	{
-		webDriver.get(NOTIFICATION_SENDER_PAGE_URL);
-		String namePhoneNumberTxtBox = "phone no";
-		String namePasswordTxtBox = "pasword";
-		String idLoginBtn = "sendLogin";
-		webDriver.findElement(By.name(namePhoneNumberTxtBox)).sendKeys(LOGIN_MOBILE_NO);
-		webDriver.findElement(By.name(namePasswordTxtBox)).sendKeys(LOGIN_PASSWOWD);
-		webDriver.findElement(By.id(idLoginBtn)).click();
-		Thread.sleep(1000);
-		mWebDriver = webDriver;
-	}
+	private boolean isInitialized = false;
 	
 	public void triggerNotification(NotificationDetails notifDetails) throws Exception
 	{
+		if(!isInitialized)
+			initialize();
+		
 		String idRecipientPhoneNumberTxtBox = "mobile";
 		String idNotificationMessageTxtBox = "message";
 		mWebDriver.findElement(By.id(idRecipientPhoneNumberTxtBox)).sendKeys(notifDetails.getNotificationReceiver());
@@ -36,6 +29,20 @@ public class NotificationSender {
 		mWebDriver.findElement(By.id(idSendBtn)).click();
 		Thread.sleep(1000);
 		System.out.println("Notification sent!!");
+	}
+
+	private void initialize() throws InterruptedException
+	{
+		mWebDriver = GlobalContext.getInstance().getWebDriver();
+		mWebDriver.get(NOTIFICATION_SENDER_PAGE_URL);
+		String namePhoneNumberTxtBox = "phone no";
+		String namePasswordTxtBox = "pasword";
+		String idLoginBtn = "sendLogin";
+		mWebDriver.findElement(By.name(namePhoneNumberTxtBox)).sendKeys(LOGIN_MOBILE_NO);
+		mWebDriver.findElement(By.name(namePasswordTxtBox)).sendKeys(LOGIN_PASSWOWD);
+		mWebDriver.findElement(By.id(idLoginBtn)).click();
+		Thread.sleep(1000);
+		isInitialized = true;
 	}
 
 	public void logout() throws InterruptedException

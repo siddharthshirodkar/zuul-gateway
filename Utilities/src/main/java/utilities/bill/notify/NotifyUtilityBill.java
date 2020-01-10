@@ -19,6 +19,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import global.utils.GlobalContext;
 import utilities.bill.datatypes.BillingDetails;
 import utilities.bill.datatypes.ElectricityBillingDetails;
 import utilities.bill.datatypes.NotificationDetails;
@@ -27,7 +28,7 @@ import utilities.bill.datatypes.WaterBillingDetails;
 public class NotifyUtilityBill {
 
 	//Selenium specific constants
-	private static final String BASE_HOME_DIR = "C:/Users/siddharth.s/";
+	private static final String BASE_HOME_DIR = System.getProperty("user.dir");
 	private static final String DRIVER_PATH = BASE_HOME_DIR + "eclipse-workspace/artifacts/driverss/";
 	
 	private static final String WATER_BILL_PREVIEW_PAGE_TITLE = "Goa Online";
@@ -77,7 +78,7 @@ public class NotifyUtilityBill {
 	}
 	
 	private void handleBillNotifications(ArrayList<BillingDetails> billingDetailsList) throws Exception {
-		NotificationSender notifSender = new NotificationSender(webDriver);
+		NotificationSender notifSender = new NotificationSender();
 		NotificationDetails notifDetails = new NotificationDetails();
 		notifDetails.setNotificationReceiver(NOTIFICATION_RECIEVER);
 		for(BillingDetails bill : billingDetailsList)
@@ -173,10 +174,11 @@ public class NotifyUtilityBill {
 		Logger.getLogger(SELENIUM_LOGGER_CLASS).setLevel(Level.OFF);
 		System.setProperty(DRIVER_PROPERTY_NAME, DRIVER_PATH+DRIVER_EXE_NAME);
 		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.setHeadless(false);
+		chromeOptions.setHeadless(true);
 		chromeOptions.addArguments("--start-maximized");
 	    System.setProperty("webdriver.chrome.silentOutput", "true");
 		webDriver = new ChromeDriver(chromeOptions);
+		GlobalContext.getInstance().setWebDriver(webDriver);
 		//webDriver.manage().window().maximize();
 	}
 	
